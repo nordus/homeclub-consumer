@@ -1,0 +1,26 @@
+.container
+  .row(style='margin-top:15px')
+    .col-xs-6
+      .panel.panel-default
+        .panel-heading HomeBase Alerts
+        table.table.table-condensed
+          tbody
+            tr.info(ng-repeat-start="date in gatewayEventsDates")
+              td.ac(colspan='3') {{ date.split('|')[1] }}
+            tr(ng-repeat="event in gatewayEventsGrouped[date] | orderBy:'-message.timestamp'", ng-repeat-end='ng-repeat-end')
+              td: small {{ event.message.timestamp | date:'h:mm a' }}
+              td(ng-bind-html='alerttext.gatewayEvent(event.message)')
+
+    .col-xs-6
+      .panel.panel-default
+        .panel-heading Sensor Alerts
+        table.table.table-condensed
+          tbody
+            tr.info(ng-repeat-start='date in sensorHubEventsDates')
+              td.ac(colspan='3') {{ date.split('|')[1] }}
+            tr(ng-repeat="event in sensorHubEventsGrouped[date] | orderBy:'-message.timestamp'", ng-repeat-end='ng-repeat-end')
+              td: small {{ event.message.timestamp | date:'h:mm a' }}
+              td(ng-bind-html='alerttext.sensorHubEvent(event.message)')
+              td
+                | {{ roomNamesBySensorHubMacAddress[event.message.sensorHubMacAddress] }} 
+                small ({{ event.message.sensorHubMacAddress }})

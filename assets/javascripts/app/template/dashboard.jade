@@ -1,0 +1,34 @@
+.container
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          span HomeBase 1
+          span.label.pull-right(ng-class='cssClassByRssiThreshold(latest[sensorHubs[0]._id].rssi)', title='wifi: {{ latest[sensorHubs[0]._id].rssi }} rssi')
+            i.icon-connection
+  .row
+    .col-xs-4(ng-repeat='sensorHub in sensorHubs')
+      .panel.panel-default
+        .panel-heading
+          span(title='{{ sensorHub._id }}') {{ meta.roomTypes[sensorHub.roomType] || meta.sensorHubTypes[sensorHub.sensorHubType] }}
+          small  ({{ latest[sensorHub._id].timestamp | date:'MMM d h:mm a' }})
+          span.label.pull-right(ng-class='cssClassByBatteryThreshold(latest[sensorHub._id].sensorHubBattery)', title='battery: {{ latest[sensorHub._id].sensorHubBattery }}%')
+            i.icon-battery-half
+          span.label.pull-right(ng-class='cssClassByRssiThreshold(latest[sensorHub._id].sensorHubRssi)', title='bluetooth: {{ latest[sensorHub._id].sensorHubRssi }} rssi')
+            i.icon-bluetooth
+        ul.list-group
+          li.list-group-item(title='Temperature')
+            strong
+              i.icon-temperature
+              |  {{ latest[sensorHub._id].sensorHubData1 }} 
+            small  &#8457;
+          li.list-group-item(ng-show='latest[sensorHub._id].sensorHubData2 != undefined', title='Light')
+            strong
+              i.icon-lamp
+              |  {{ latest[sensorHub._id].sensorHubData2 }} 
+            small  lux
+          li.list-group-item(title='Humidity', ng-show='latest[sensorHub._id].sensorHubData2 != undefined')
+            strong
+              i.icon-droplets
+              |  {{ latest[sensorHub._id].sensorHubData3 }} 
+            small  %

@@ -1,0 +1,20 @@
+.container
+  .row
+    .col-xs-6
+      select.form-control(ng-model='searchParams.sensorHubType')
+        option(value='2') Comfort Director
+        option(value='1') Water Protector
+
+    .col-xs-6
+      select.form-control(ng-model='searchParams.start')
+        option(value="1 hour ago") 1 hour ago to now
+        option(value='1 day ago') 1 day ago to now
+        option(value='1 week ago') 1 week ago to now
+        option(value='30 days ago') 30 days ago to now
+
+  .row
+    highchart(config='tempChartConfig', class='col-xs-12')
+  .row(ng-show="searchParams.sensorHubType == '2'")
+    highchart(config='lightChartConfig', class='col-xs-12')
+  .row(ng-show="searchParams.sensorHubType == '2'")
+    highchart(config='humidityChartConfig', class='col-xs-12')

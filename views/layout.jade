@@ -1,0 +1,57 @@
+doctype 5
+html
+  head
+    title HomeClub
+    link(rel='icon', href='http://dl.dropboxusercontent.com/u/20868114/homeclub/favicon.ico', type='image/x-icon')
+    link(rel='stylesheet', href='/stylesheets/vendor/toastr/toastr.css' + cachebust)
+    link(rel='stylesheet', href='/stylesheets/consumer.css' + cachebust)
+    link(rel='stylesheet', href='https://dl.dropboxusercontent.com/u/20868114/homeclub/icons.css')
+    if reload
+      script(src='/socket.io/socket.io.js')
+      script(src='/javascripts/reload-client.js')
+
+    if optimize
+      script(src='/javascripts/consumer-built.js')
+    else
+      script(src='/javascripts/vendor/requirejs/require.js', data-main='/javascripts/consumer.js')
+
+  body.ng-cloak(ng-show='currentUser')
+    header.navbar.navbar-default.navbar-static-top(ng-controller='header')
+      .container
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='#nav')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+
+          a.navbar-brand
+            img(src='https://dl.dropboxusercontent.com/u/2956535/images/homeclub/logo-white-thin-sm.png')
+        #nav.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(href='#')
+                i.icon-dashboard 
+                | Dashboard
+            li(ng-class="{active: isActive('/alerts')}")
+              a(href='#/alerts')
+                i.icon-warning 
+                | Alerts
+            li(ng-class="{active: isActive('/reports')}")
+              a(href='#/reports')
+                i.icon-stats 
+                | Reports
+
+                
+          ul.nav.navbar-nav.navbar-right
+            li.dropdown
+              a.dropdown-toggle(data-toggle='dropdown')
+                | {{ currentUser.name.first || currentUser.user.email }}
+                b.caret
+              ul.dropdown-menu
+                li: a(href='#/account') Account
+                li: a(ng-show='currentUser.user.roles.homeClubAdmin', href='/admin') View admin
+                li.divider
+                li: a(ng-click='logout()') Logout
+      
+    block content
