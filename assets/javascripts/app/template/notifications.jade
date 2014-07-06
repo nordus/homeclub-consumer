@@ -1,0 +1,46 @@
+.container
+  pre {{ customerAccount | json }}
+  legend Sensor Alerts
+
+  .form-group.col-xs-12
+    label.col-xs-4 Water detect
+    .col-xs-8
+      .btn-group
+        a.btn.btn-default.active(ng-click="toggleNotification(1, 'sensorHubEvent', 'Email')")
+          i.icon-at
+        a.btn.btn-default.active(ng-click="toggleNotification(1, 'sensorHubEvent', 'Sms')")
+          i.icon-mobile
+
+  .form-group.col-xs-12
+    label.col-xs-4 Motion detect
+    .col-xs-8
+      .btn-group
+        a.btn.btn-default
+          i.icon-at
+        a.btn.btn-default
+          i.icon-mobile
+  .form-group.col-xs-12
+    label.col-xs-4 Low temp
+    .col-xs-8
+      .btn-group
+        a.btn.btn-default
+          i.icon-at
+        a.btn.btn-default
+          i.icon-mobile
+  legend HomeBase Alerts
+  .form-group.col-xs-12
+    label.col-xs-4 Switching to backup battery
+    .col-xs-8
+      .btn-group
+        a.btn.btn-default.active(ng-click="toggleNotification(1, 'gatewayEvent', 'Email')")
+          i.icon-at
+        a.btn.btn-default.active(ng-click="toggleNotification(1, 'gatewayEvent', 'Sms')")
+          i.icon-mobile
+  .form-group.col-xs-12
+    label.col-xs-4 Switching to line power
+    .col-xs-8
+      .btn-group
+        a.btn.btn-default.active
+          i.icon-at
+        a.btn.btn-default.active
+          i.icon-mobile

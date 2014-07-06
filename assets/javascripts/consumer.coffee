@@ -10,6 +10,7 @@ require ['requirejs-config'], ->
     'c/header'
     'c/reports'
     'c/account'
+    'c/notifications'
     'bootstrap'
     ], (angular, app, templates, snapengageWidget) ->
 
@@ -48,6 +49,11 @@ require ['requirejs-config'], ->
           controller  : 'alerts'
           template    : templates.alerts
           resolve: auth
+
+        .when '/notifications',
+          controller  : 'notifications'
+          template    : templates.notifications
+          resolve     : auth
 
         .otherwise
           redirectTo  : '/'
