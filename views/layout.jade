@@ -50,6 +50,7 @@ html
                 b.caret
               ul.dropdown-menu
                 li: a(href='#/account') Account
+                li: a(href='#/notifications') Setup notifications
                 li: a(ng-show='currentUser.user.roles.homeClubAdmin', href='/admin') View admin
                 li.divider
                 li: a(ng-click='logout()') Logout

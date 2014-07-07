@@ -2,31 +2,13 @@
   pre {{ customerAccount | json }}
   legend Sensor Alerts
 
-  .form-group.col-xs-12
-    label.col-xs-4 Water detect
+  .form-group.col-xs-12(ng-repeat='sensorHubEvent in sensorHubEvents')
+    label.col-xs-4 {{ sensorHubEvent.name }}
     .col-xs-8
       .btn-group
-        a.btn.btn-default.active(ng-click="toggleNotification(1, 'sensorHubEvent', 'Email')")
-          i.icon-at
-        a.btn.btn-default.active(ng-click="toggleNotification(1, 'sensorHubEvent', 'Sms')")
-          i.icon-mobile
+        a.btn.btn-default(ng-repeat='deliveryMethod in deliveryMethods', ng-class="{active:isChecked(sensorHubEvent.value, 'sensorHubEvent', deliveryMethod.name)}", ng-click="toggleNotification(sensorHubEvent.value, 'sensorHubEvent', deliveryMethod.name)")
+          i(class='{{ deliveryMethod.icon }}')
 
-  .form-group.col-xs-12
-    label.col-xs-4 Motion detect
-    .col-xs-8
-      .btn-group
-        a.btn.btn-default
-          i.icon-at
-        a.btn.btn-default
-          i.icon-mobile
-  .form-group.col-xs-12
-    label.col-xs-4 Low temp
-    .col-xs-8
-      .btn-group
-        a.btn.btn-default
-          i.icon-at
-        a.btn.btn-default
-          i.icon-mobile
   legend HomeBase Alerts
   .form-group.col-xs-12
     label.col-xs-4 Switching to backup battery
