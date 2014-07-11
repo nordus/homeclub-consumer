@@ -3,6 +3,12 @@ define ['c/controllers', 's/customer-account'], (controllers) ->
   controllers.controller 'notifications', ['$rootScope', '$scope', 'customeraccount', ($rootScope, $scope, customerAccount) ->
     $scope.customerAccount = new customerAccount($rootScope.currentUser)
 
+    $scope.gatewayEvents = [
+      value:1, name:'Switching to backup battery'
+    ,
+      value:2, name:'Switching to line power'
+    ]
+
     $scope.sensorHubEvents = [
       value:1, name:'Water detect'
     ,
@@ -41,5 +47,5 @@ define ['c/controllers', 's/customer-account'], (controllers) ->
         checkedNotifications.splice indexOfValue, 1
       else
         checkedNotifications.push value
-      # $scope.customerAccount.$update()
+        $scope.customerAccount.$update()
   ]
