@@ -4,7 +4,7 @@
       .panel.panel-default
         .panel-heading
           span HomeBase 1
-          span.label.pull-right(ng-class='cssClassByRssiThreshold(latest[sensorHubs[0]._id].rssi)', title='wifi: {{ latest[sensorHubs[0]._id].rssi }} rssi')
+          span.label.pull-right(ng-class='cssClassByRssiThreshold(latest[sensorHubs[0]._id].rssi)', title='cellular: {{ latest[sensorHubs[0]._id].rssi }} rssi')
             i.icon-connection
   .row
     .col-xs-4(ng-repeat='sensorHub in sensorHubs')
