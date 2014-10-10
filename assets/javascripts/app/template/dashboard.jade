@@ -17,7 +17,9 @@
           span.label.pull-right(ng-class='cssClassByRssiThreshold(latest[sensorHub._id].sensorHubRssi)', title='bluetooth: {{ latest[sensorHub._id].sensorHubRssi }} rssi')
             i.icon-bluetooth
         ul.list-group
-          li.list-group-item(title='Temperature')
+          li.list-group-item.list-group-item-warning(ng-show='latest[sensorHub._id].sensorHubData1 == undefined')
+            | No data received (last 30 days)
+          li.list-group-item(ng-show='latest[sensorHub._id].sensorHubData1 != undefined', title='Temperature')
             strong
               i.icon-temperature
               |  {{ latest[sensorHub._id].sensorHubData1 }} 
