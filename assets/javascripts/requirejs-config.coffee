@@ -15,6 +15,7 @@ requirejs.config
     f           : 'filters'
     s           : 'services'
     highcharts  : 'vendor/highcharts/highcharts'
+    'highcharts-more' : 'vendor/highcharts/highcharts-more'
     lodash      : 'vendor/lodash/lodash.compat'
     toastr      : 'vendor/toastr/toastr'
 
@@ -27,5 +28,6 @@ requirejs.config
     ngRoute     : ['ng']
     ngSanitize  : ['ng']
     highcharts  : ['jquery']
-    'highcharts-ng' : ['ng', 'highcharts']
+    'highcharts-more': ['highcharts']
+    'highcharts-ng' : ['ng', 'highcharts', 'highcharts-more']
     toastr      : ['jquery']

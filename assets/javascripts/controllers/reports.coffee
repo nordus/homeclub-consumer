@@ -1,61 +1,26 @@
-define ['c/controllers', 's/search'], (controllers) ->
-	'use strict'
+define ['c/controllers', 's/fieldhistogram'], (controllers) ->
+  'use strict'
 
-	controllers.controller 'reports', ['$scope', 'search', ($scope, search) ->
+  controllers.controller 'reports', ['$scope', 'fieldhistogram', ($scope, fieldhistogram) ->
+    $scope.formatId = (str) ->
+      str.replace(/\(|\)/g, '').replace(/\s/g, '_')
 
-		Highcharts.setOptions
-		  global:
-		    useUTC: false
+    $scope.replaceChartData = (start) ->
+      if start in ['1 month ago', '6 months ago']
+        $scope.searchParams.interval = 'day'
+      else
+        $scope.searchParams.interval = 'hour'
+      fieldhistogram.get $scope.searchParams, (data) -> $scope.chartData = data
 
-		chartConfig =
-			options:
-				chart:
-					type: 'line'
-			xAxis:
-				type: 'datetime'
-			
-		$scope.tempChartConfig			= angular.extend
-			title:
-				text: 'Temp'
-			yAxis:
-				title:
-					text: 'Fahrenheit'
-		, chartConfig
-					
-		$scope.lightChartConfig			= angular.extend
-			title:
-				text: 'Light'
-			yAxis:
-				title:
-					text: 'Lux'
-				type: 'logarithmic'
-				minorTickInterval: 0.1
-		, chartConfig
-					
-		$scope.humidityChartConfig	= angular.extend
-			title:
-				text: 'Humidity'
-			yAxis:
-				title:
-					text: '%'
-		, chartConfig
+    $scope.searchParams =
+      start			: '1 day ago'
 
-		$scope.replaceChartData = (searchParams = {}) ->
-			
-			search.sensorHubData searchParams, (chartData) ->
-				
-				$scope.tempChartConfig.series	= chartData['temp'].series
+    $scope.$watch 'searchParams.start', (newValue) ->
+      $scope.replaceChartData newValue
 
-				if String(searchParams.sensorHubType) is '2'
-					$scope.lightChartConfig.series		= chartData['light'].series
-					$scope.humidityChartConfig.series	= chartData['humidity'].series
+    Highcharts.setOptions
+      global:
+        useUTC: false
 
-		$scope.searchParams =
-			highchartFormat	: true
-			sensorHubType		: '2'
-			start						: '1 day ago'
-		
-		$scope.$watchCollection 'searchParams', (newValue) ->
-			$scope.replaceChartData newValue
 
-	]
+  ]
