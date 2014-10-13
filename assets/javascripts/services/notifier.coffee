@@ -2,7 +2,7 @@ define ['ng', 's/services', 'toastr'], (angular, services, toastr) ->
   
   toastr.options =
     closeButton   : true
-    timeOut       : '600000'
+    timeOut       : '10000'
   
   services.factory 'notifier', ->
     error   : (title, msg) ->
