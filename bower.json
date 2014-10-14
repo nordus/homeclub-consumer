@@ -12,6 +12,7 @@
     "lodash": "~2.4.1",
     "toastr": "~2.0.3",
     "angular-pusher": "latest",
-    "angular-sanitize": "1.3.0-beta.11"
+    "angular-sanitize": "1.3.0-beta.11",
+    "highcharts-ng": "~0.0.7"
   }
 }
