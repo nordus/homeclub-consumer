@@ -45,7 +45,13 @@ html
                 
           ul.nav.navbar-nav.navbar-right
             li: a(href='#/account') Account
-            li: a(href='#/notifications') Setup notifications
+            li.dropdown
+              a.dropdown-toggle(data-toggle='dropdown')
+                | Setup
+                span.caret
+              ul.dropdown-menu(role='menu')
+                li: a(href='#/sensors') Sensors
+                li: a(href='#/notifications') Alert Delivery
             li: a(ng-show='currentUser.user.roles.homeClubAdmin', href='/admin') View admin
             li.divider
             li: a(ng-click='logout()') Logout

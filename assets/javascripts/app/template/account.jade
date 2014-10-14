@@ -1,39 +1,9 @@
 .container
   .row
-    .col-xs-6
-      
-      
-      .page-header Sensor Hub Locations
-      
-      .alert.alert-warning(ng-hide="everySensorHubHasARoomType(sensorHubs)") Please specify Sensor Hub Locations
-
-      form.form-horizontal(ng-repeat='sensorHub in sensorHubs')
-        .form-group
-          label.col-xs-6.control-label {{ meta.roomTypes[sensorHub.roomType] || meta.sensorHubTypes[sensorHub.sensorHubType] }} ({{ sensorHub._id }})
-          .col-xs-6
-            select.form-control(ng-show='sensorHub.roomType', ng-model='sensorHub.roomType', ng-options='roomTypeId as roomTypeName for (roomTypeId, roomTypeName) in meta.roomTypes')
-              option(value='') -- change room --
-            select.form-control(ng-hide='sensorHub.roomType', ng-model='sensorHub.roomType', ng-options='roomTypeId as roomTypeName for (roomTypeId, roomTypeName) in meta.roomTypes')
-              option(value='') -- choose room --
-
-              
-      .page-header Water Sources
-      
-      .alert.alert-warning(ng-hide='everySensorHubHasAWaterSource(sensorHubs)') Please specify Water Sources
-      
-      form.form-horizontal(ng-repeat='sensorHub in sensorHubs')
-        .form-group(ng-if='sensorHub.sensorHubType == 1')
-          label.col-xs-6.control-label {{ meta.roomTypes[sensorHub.roomType] || meta.sensorHubTypes[sensorHub.sensorHubType] }} {{ meta.waterSources[sensorHub.waterSource] }} ({{ sensorHub._id }})
-          .col-xs-6
-            select.form-control(ng-hide='sensorHub.waterSource', ng-model='sensorHub.waterSource', ng-options='waterSourceId as waterSourceName for (waterSourceId, waterSourceName) in meta.waterSources')
-              option(value='') -- choose water source --
-            select.form-control(ng-show='sensorHub.waterSource', ng-model='sensorHub.waterSource', ng-options='waterSourceId as waterSourceName for (waterSourceId, waterSourceName) in meta.waterSources')
-              option(value='') -- change water source --
-
 
     .col-xs-6
       
-      .page-header Home
+      .page-header(style='margin-top:0') Home
       
       form.form-horizontal
         .form-group

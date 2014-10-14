@@ -11,6 +11,7 @@ require ['requirejs-config'], ->
     'c/reports'
     'c/account'
     'c/notifications'
+    'c/sensors'
     'bootstrap'
     ], (angular, app, templates, snapengageWidget) ->
 
@@ -55,8 +56,13 @@ require ['requirejs-config'], ->
           template    : templates.notifications
           resolve     : auth
 
-        .otherwise
-          redirectTo  : '/'
+      .when '/sensors',
+        controller  : 'sensors'
+        template    : templates.sensors
+        resolve     : auth
+
+      .otherwise
+        redirectTo  : '/'
 
     app.config ['$routeProvider', rp]
 
