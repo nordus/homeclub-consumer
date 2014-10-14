@@ -1,6 +1,6 @@
-define ['c/controllers', 's/customer-account'], (controllers) ->
+define ['c/controllers', 's/customer-account', 's/notifier'], (controllers) ->
   
-  controllers.controller 'notifications', ['$rootScope', '$scope', 'customeraccount', ($rootScope, $scope, customerAccount) ->
+  controllers.controller 'notifications', ['$rootScope', 'notifier', '$scope', 'customeraccount', ($rootScope, notifier, $scope, customerAccount) ->
     $scope.customerAccount = new customerAccount($rootScope.currentUser)
 
     $scope.gatewayEvents = [
@@ -48,4 +48,9 @@ define ['c/controllers', 's/customer-account'], (controllers) ->
       else
         checkedNotifications.push value
         $scope.customerAccount.$update()
+
+    $scope.save = ->
+      $scope.customerAccount.$update (customerAccount) ->
+        notifier.info 'Saved!'
+
   ]

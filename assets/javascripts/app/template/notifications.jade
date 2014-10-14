@@ -18,8 +18,8 @@
           a.btn.btn-default(ng-repeat='deliveryMethod in deliveryMethods', ng-class="{active:isChecked(gatewayEvent.value, 'gatewayEvent', deliveryMethod.name)}", ng-click="toggleNotification(gatewayEvent.value, 'gatewayEvent', deliveryMethod.name)")
             i(class='{{ deliveryMethod.icon }}')
 
-  // .row(style='margin-top:25px')
-  //   .col-xs-12
-  //     .form-group
-  //       .col-xs-2.col-xs-offset-4.ac
-  //         button.btn.btn-warning.btn-block(ng-click='save()') Save
+  .row(style='margin-top:25px')
+     .col-xs-12
+       .form-group
+         .col-xs-2.col-xs-offset-4.ac
+           button.btn.btn-warning.btn-block(ng-click='save()') Save
