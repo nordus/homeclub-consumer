@@ -8,8 +8,8 @@
         .btn-group
           a.btn.btn-default(ng-repeat='deliveryMethod in deliveryMethods', ng-class="{active:isChecked(sensorHubEvent.value, 'sensorHubEvent', deliveryMethod.name)}", ng-click="toggleNotification(sensorHubEvent.value, 'sensorHubEvent', deliveryMethod.name)")
             i(class='{{ deliveryMethod.icon }}')
-  
-    legend HomeBase Alerts
+
+    legend Network Hub Alerts
   
     .form-group.col-xs-12(ng-repeat='gatewayEvent in gatewayEvents')
       label.col-xs-4 {{ gatewayEvent.name }}
