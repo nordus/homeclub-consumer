@@ -16,6 +16,7 @@ requirejs.config
     s           : 'services'
     highcharts  : 'vendor/highcharts/highcharts'
     'highcharts-more' : 'vendor/highcharts/highcharts-more'
+    'highcharts-ng' : 'vendor/highcharts-ng/highcharts-ng'
     lodash      : 'vendor/lodash/lodash.compat'
     toastr      : 'vendor/toastr/toastr'
 
