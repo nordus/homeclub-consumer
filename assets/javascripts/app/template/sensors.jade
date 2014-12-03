@@ -22,14 +22,14 @@
                     input(type='checkbox', ng-click="toggleMuted(sensorHub._id, 'temperature')", ng-checked="categoryIsNotMuted(sensorHub._id, 'temperature')")
                   h5.media-heading  Temperature
 
-                .list-group-item(ng-hide='sensorHub.sensorHubType == 1', style='padding:10px;margin-bottom:0')
+                .list-group-item(ng-show='sensorHub.sensorHubType == 2', style='padding:10px;margin-bottom:0')
                   span.pull-left(style='margin-right:5px')
                     i.media-object.icon-lamp
                   span.pull-right
                     input(type='checkbox', ng-click="toggleMuted(sensorHub._id, 'light')", ng-checked="categoryIsNotMuted(sensorHub._id, 'light')")
                   h5.media-heading  Light
 
-                .list-group-item(ng-hide='sensorHub.sensorHubType == 1', style='padding:10px;margin-bottom:0')
+                .list-group-item(ng-show='sensorHub.sensorHubType == 2', style='padding:10px;margin-bottom:0')
                   span.pull-left(style='margin-right:5px')
                     i.media-object.icon-droplets
                   span.pull-right
