@@ -43,6 +43,20 @@
                   span.pull-right
                     input(type='checkbox', ng-click="toggleMuted(sensorHub._id, 'water')", ng-checked="categoryIsNotMuted(sensorHub._id, 'water')")
 
+                .list-group-item(ng-show='sensorHub.sensorHubType == 3', style='padding:10px;margin-bottom:0')
+                  span.pull-left(style='margin-right:5px')
+                    i.media-object.icon-eye
+                  span.media-heading  Movement
+                  span.pull-right
+                    input(type='checkbox', checked='checked')
+
+                .list-group-item(ng-show='sensorHub.sensorHubType == 4', style='padding:10px;margin-bottom:0')
+                  span.pull-left(style='margin-right:5px')
+                    i.media-object.icon-eye
+                  span.media-heading  Motion
+                  span.pull-right
+                    input(type='checkbox', checked='checked')
+
             .col-xs-6
               legend(style='font-size:inherit; margin-bottom:8px') Room
               select.form-control(ng-model='sensorHub.roomType', ng-options='roomTypeId as roomTypeName for (roomTypeId, roomTypeName) in meta.roomTypes')
