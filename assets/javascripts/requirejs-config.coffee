@@ -5,7 +5,7 @@ requirejs.config
   paths:
     jquery      : 'vendor/jquery/jquery'
     ng          : 'vendor/angular/angular'
-    ngPusher    : 'vendor/angular-pusher/angular-pusher'
+    ngPusher    : 'angular-pusher'
     ngResource  : 'vendor/angular-resource/angular-resource'
     ngRoute     : 'vendor/angular-route/angular-route'
     ngSanitize  : 'vendor/angular-sanitize/angular-sanitize'
