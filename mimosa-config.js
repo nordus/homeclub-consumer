@@ -11,7 +11,8 @@ exports.config = {
     "bower",
     "coffeescript",
     "less",
-    "jade"
+    "jade",
+    "web-package"
   ],
   "template": {
     "outputFileName": "javascripts/consumer-templates"
