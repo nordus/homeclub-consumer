@@ -19,5 +19,8 @@ exports.config = {
   },
   require: {
     commonConfig: 'requirejs-config'
+  },
+  minifyJS: {
+    mangleNames: false
   }
 }
