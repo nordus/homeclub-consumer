@@ -31,7 +31,7 @@ require ['requirejs-config'], ->
         ]
 
       $routeProvider
-        .when '/',
+        .when '/dashboard',
           controller  : 'dashboard'
           template    : templates.dashboard
           resolve: auth
@@ -62,7 +62,7 @@ require ['requirejs-config'], ->
         resolve     : auth
 
       .otherwise
-        redirectTo  : '/'
+        redirectTo  : '/dashboard'
 
     app.config ['$routeProvider', rp]
 
