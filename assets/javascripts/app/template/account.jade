@@ -2,9 +2,9 @@
   .row
 
     .col-xs-6
-      
+
       .page-header(style='margin-top:0') Home
-      
+
       form.form-horizontal
         .form-group
           .col-xs-12
@@ -21,10 +21,10 @@
             input.form-control(ng-model='customerAccount.state', type='text')
           .col-xs-3
             input.form-control(ng-model='customerAccount.zip', type='text')
- 
-    
+
+
       .page-header Contact
-      
+
       form.form-horizontal
         .form-group
           .col-xs-6
@@ -35,21 +35,21 @@
           .col-xs-6
             .input-group
               .input-group-addon @
-              input.form-control(ng-model='user.email', type='email')
+              input.form-control(ng-model='user.email', type='email', disabled='disabled')
           .col-xs-6
             .input-group
               .input-group-addon #
               input.form-control(ng-model='customerAccount.phone', type='text')
 
-      .page-header Gateway
-      
+      .page-header Network Hub
+
       form.form-horizontal
         .form-group
           label.col-xs-6.control-label MAC Address
           .col-xs-6
             input.form-control(ng-model='customerAccount.gateways[0]._id', type='text', disabled='disabled')
-            
-          
+
+
   .row(style='margin-top:25px')
     .col-xs-12
       .form-group
