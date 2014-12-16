@@ -14,6 +14,8 @@ define ['c/controllers', 's/customer-account', 's/notifier'], (controllers) ->
     ,
       value:2, name:'Motion detect'
     ,
+      value:9, name:'Item Movement'
+    ,
       value:3, name:'Low temperature'
     ,
       value:4, name:'High temperature'

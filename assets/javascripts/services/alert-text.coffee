@@ -18,6 +18,7 @@ define ['ng', 's/services'], (angular, services) ->
         when 6 then '<i class="icon-droplets"></i> High humidity'
         when 7 then '<i class="icon-lamp"></i> Low light'
         when 8 then '<i class="icon-lamp"></i> High light'
+        when 9 then '<i class="icon-reply-all2"></i> Movement'
       if eventResolved
         alertText += ' resolved'
       alertText
