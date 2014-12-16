@@ -10,12 +10,15 @@
     .col-xs-4(ng-repeat='sensorHub in sensorHubs')
       .panel.panel-default
         .panel-heading
-          span(title='{{ sensorHub._id }}') {{ meta.roomTypes[sensorHub.roomType] || meta.sensorHubTypes[sensorHub.sensorHubType] }}
+          span(title='{{ sensorHub._id }}') {{ meta.sensorHubTypes[sensorHub.sensorHubType] }}
           small  ({{ latest[sensorHub._id].timestamp | date:'MMM d h:mm a' }})
           span.label.pull-right(ng-class='cssClassByBatteryThreshold(latest[sensorHub._id].sensorHubBattery)', title='battery: {{ latest[sensorHub._id].sensorHubBattery }}%')
             i.icon-battery-half
           span.label.pull-right(ng-class='cssClassByRssiThreshold(latest[sensorHub._id].sensorHubRssi)', title='bluetooth: {{ latest[sensorHub._id].sensorHubRssi }} rssi')
             i.icon-bluetooth
+          br
+          span {{ meta.roomTypes[sensorHub.roomType] }}
+          small(ng-show='sensorHub.sensorHubType == 1 && sensorHub.waterSource')  ({{ meta.waterSources[sensorHub.waterSource] }})
         ul.list-group
           li.list-group-item.list-group-item-warning(ng-show='latest[sensorHub._id].sensorHubData1 == undefined')
             | No data received (last 30 days)
