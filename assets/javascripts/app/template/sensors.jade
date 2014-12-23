@@ -7,7 +7,7 @@
 
       .row.panel.panel-default(ng-repeat='sensorHub in sensorHubs')
         .panel-heading
-          | {{ sensorHubName(sensorHub) }}
+          | {{ meta.sensorHubTypes[sensorHub.sensorHubType] }}
           small.muted  {{ sensorHub._id }}
         .panel-body
           .row
