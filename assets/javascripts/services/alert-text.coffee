@@ -11,7 +11,7 @@ define ['ng', 's/services'], (angular, services) ->
         eventType = message.sensorEventStart
       alertText = switch eventType
         when 1 then '<i class="icon-droplet"></i> Water detect'
-        when 2 then 'Motion detect'
+        when 2 then '<i class="icon-eye"></i> Motion detect'
         when 3 then '<i class="icon-temperature"></i> Low temperature'
         when 4 then '<i class="icon-temperature"></i> High temperature'
         when 5 then '<i class="icon-droplets"></i> Low humidity'
