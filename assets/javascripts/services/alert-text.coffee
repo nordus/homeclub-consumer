@@ -30,4 +30,4 @@ define ['ng', 's/services'], (angular, services) ->
         when 3 then '<i class="icon-battery-half"></i> Transition from high to low battery voltage'
         when 4 then '<i class="icon-battery-empty"></i> Transition from low to critical low battery voltage'
         when 5 then '<i class="icon-power-cord"></i> Going from shipping/dead to power on (SDG connected to line power)'
-        when 6 then '<i class="icon-connection"></i> Heartbeat'
+        when 6 then '<i class="icon-connection"></i> Restart'
