@@ -43,14 +43,14 @@
                   span.pull-right
                     input(type='checkbox', ng-click="toggleMuted(sensorHub._id, 'water')", ng-checked="categoryIsNotMuted(sensorHub._id, 'water')")
 
-                .list-group-item(ng-show='sensorHub.sensorHubType == 3', style='padding:10px;margin-bottom:0')
+                .list-group-item(ng-show='sensorHub.sensorHubType == 4', style='padding:10px;margin-bottom:0')
                   span.pull-left(style='margin-right:5px')
                     i.media-object.icon-reply-all2
                   span.media-heading  Movement
                   span.pull-right
                     input(type='checkbox', ng-click="toggleMuted(sensorHub._id, 'movement')", ng-checked="categoryIsNotMuted(sensorHub._id, 'movement')")
 
-                .list-group-item(ng-show='sensorHub.sensorHubType == 4', style='padding:10px;margin-bottom:0')
+                .list-group-item(ng-show='sensorHub.sensorHubType == 3', style='padding:10px;margin-bottom:0')
                   span.pull-left(style='margin-right:5px')
                     i.media-object.icon-eye
                   span.media-heading  Motion
