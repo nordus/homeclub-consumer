@@ -1,5 +1,15 @@
 .container
   .row
+    .col-xs-12.page-header
+
+      h3.pull-left(style='margin:0 15px 15px 0') Account
+
+      form.pull-right(style='margin:0')
+        button.btn(ng-class="{ 'btn-default disabled':loading, 'btn-warning':!loading }", ng-click='save()')
+          span(ng-hide='loading') Save
+          span(ng-show='loading') .. saving
+
+  .row
 
     .col-xs-6
 
@@ -48,10 +58,3 @@
           label.col-xs-6.control-label MAC Address
           .col-xs-6
             input.form-control(ng-model='customerAccount.gateways[0]._id', type='text', disabled='disabled')
-
-
-  .row(style='margin-top:25px')
-    .col-xs-12
-      .form-group
-        .col-xs-2.col-xs-offset-4.ac
-          button.btn.btn-warning.btn-block(ng-click='save()') Save

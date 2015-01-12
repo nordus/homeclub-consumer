@@ -34,9 +34,11 @@ define ['c/controllers', 's/sensorhub', 's/customer-account', 's/user', 's/notif
       meta.roomTypes[sensorHub.roomType] || meta.sensorHubTypes[sensorHub.sensorHubType]
 
     $scope.save = ->
+      $scope.loading = true
       $scope.sensorHubs.forEach (sensorHub) ->
         sensorHub.$update()
       $scope.customerAccount.$update (customerAccount) ->
         notifier.info 'Saved!'
+        $scope.loading = false
 
   ]

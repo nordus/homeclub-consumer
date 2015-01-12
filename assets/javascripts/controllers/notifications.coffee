@@ -52,7 +52,9 @@ define ['c/controllers', 's/customer-account', 's/notifier'], (controllers) ->
         $scope.customerAccount.$update()
 
     $scope.save = ->
+      $scope.loading = true
       $scope.customerAccount.$update (customerAccount) ->
         notifier.info 'Saved!'
+        $scope.loading = false
 
   ]

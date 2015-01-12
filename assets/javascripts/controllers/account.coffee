@@ -7,8 +7,10 @@ define ['c/controllers', 's/customer-account', 's/user', 's/notifier'], (control
 		$scope.user = new user($rootScope.currentUser.user)
 
 		$scope.save = ->
+			$scope.loading = true
 			$scope.user.$update()
 			$scope.customerAccount.$update (customerAccount) ->
 				notifier.info 'Saved!'
+				$scope.loading = false
 
   ]

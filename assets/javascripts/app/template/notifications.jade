@@ -1,7 +1,18 @@
 .container
   .row
-    legend Sensor Alerts
-  
+    .col-xs-12.page-header
+
+      h3.pull-left(style='margin:0 15px 15px 0') Alert Delivery
+
+      form.pull-right(style='margin:0')
+        button.btn(ng-class="{ 'btn-default disabled':loading, 'btn-warning':!loading }", ng-click='save()')
+          span(ng-hide='loading') Save
+          span(ng-show='loading') .. saving
+
+  .row
+    .col-xs-12.page-header(style='margin-top:0') Sensor Alerts
+
+  .row
     .form-group.col-xs-12(ng-repeat='sensorHubEvent in sensorHubEvents')
       label.col-xs-4 {{ sensorHubEvent.name }}
       .col-xs-8
@@ -9,17 +20,13 @@
           a.btn.btn-default(ng-repeat='deliveryMethod in deliveryMethods', ng-class="{active:isChecked(sensorHubEvent.value, 'sensorHubEvent', deliveryMethod.name)}", ng-click="toggleNotification(sensorHubEvent.value, 'sensorHubEvent', deliveryMethod.name)")
             i(class='{{ deliveryMethod.icon }}')
 
-    legend Network Hub Alerts
-  
+  .row
+    .col-xs-12.page-header(style='margin-top:0') Network Hub Alerts
+
+  .row
     .form-group.col-xs-12(ng-repeat='gatewayEvent in gatewayEvents')
       label.col-xs-4 {{ gatewayEvent.name }}
       .col-xs-8
         .btn-group
           a.btn.btn-default(ng-repeat='deliveryMethod in deliveryMethods', ng-class="{active:isChecked(gatewayEvent.value, 'gatewayEvent', deliveryMethod.name)}", ng-click="toggleNotification(gatewayEvent.value, 'gatewayEvent', deliveryMethod.name)")
             i(class='{{ deliveryMethod.icon }}')
-
-  .row(style='margin-top:25px')
-     .col-xs-12
-       .form-group
-         .col-xs-2.col-xs-offset-4.ac
-           button.btn.btn-warning.btn-block(ng-click='save()') Save
