@@ -37,3 +37,31 @@
               i.icon-droplets
               |  {{ latest[sensorHub._id].sensorHubData3 }}
             small  %
+
+  .row
+    .col-xs-6
+      .panel.panel-info
+        .panel-heading
+          span Network Hub Alerts&nbsp;
+          small (last 60 minutes)
+          span.badge.pull-right {{ networkHubEvents.length }}
+        table.table.table-condensed
+          tbody
+            tr(ng-repeat="event in networkHubEvents | orderBy:'-timestamp'")
+              td: small {{ event.timestamp | date:'h:mm a' }}
+              td(ng-bind-html='alerttext.gatewayEvent(event)')
+
+    .col-xs-6
+      .panel.panel-info
+        .panel-heading
+          span Sensor Alerts&nbsp;
+          small (last 60 minutes)
+          span.badge.pull-right {{ sensorHubEvents.length }}
+        table.table.table-condensed
+          tbody
+            tr(ng-repeat="event in sensorHubEvents | orderBy:'-timestamp'")
+              td: small {{ event.timestamp | date:'h:mm a' }}
+              td(ng-bind-html='alerttext.sensorHubEvent(event)')
+              td
+                | {{ roomNamesBySensorHubMacAddress[event.sensorHubMacAddress] }}
+                small ({{ event.sensorHubMacAddress }})
