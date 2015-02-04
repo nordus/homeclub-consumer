@@ -7,18 +7,24 @@ define ['c/controllers', 's/sensorhub', 's/latest', 's/meta'], (controllers) ->
 		latest.get {}, (data) -> $scope.latest = data
 
 		$scope.cssClassByRssiThreshold = (rssi) ->
-			rssi = Number(rssi)
-			switch
-			  when rssi < -95 then 'label-danger'
-			  when rssi < -80 then 'label-warning'
-			  else 'label-success'
+      if rssi is undefined
+        return 'label-default'
+      else
+        rssiNum = Number(rssi)
+        switch
+          when rssiNum < -95 then 'label-danger'
+          when rssiNum < -80 then 'label-warning'
+          else 'label-success'
 
 		$scope.cssClassByBatteryThreshold = (battery) ->
-			battery = Number(battery)
-			switch
-				when battery > 70 then 'label-success'
-				when battery > 49 then 'label-warning'
-				else 'label-danger'
+      if battery is undefined
+        return 'label-default'
+      else
+        batteryNum = Number(battery)
+        switch
+          when batteryNum > 70 then 'label-success'
+          when batteryNum > 49 then 'label-warning'
+          else 'label-danger'
 
 		$scope.meta = meta
 

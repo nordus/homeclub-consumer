@@ -21,19 +21,19 @@
           small(ng-show='sensorHub.sensorHubType == 1 && sensorHub.waterSource')  ({{ meta.waterSources[sensorHub.waterSource] }})
         ul.list-group
           li.list-group-item.list-group-item-warning(ng-show='latest[sensorHub._id].sensorHubData1 == undefined')
-            | No data received (last 30 days)
+            | No data collected yet
           li.list-group-item(ng-show='latest[sensorHub._id].sensorHubData1 != undefined', title='Temperature')
             strong
               i.icon-temperature
-              |  {{ latest[sensorHub._id].sensorHubData1 }} 
+              |  {{ latest[sensorHub._id].sensorHubData1 }}
             small  &#8457;
           li.list-group-item(ng-show='latest[sensorHub._id].sensorHubData2 != undefined', title='Light')
             strong
               i.icon-lamp
-              |  {{ latest[sensorHub._id].sensorHubData2 }} 
+              |  {{ latest[sensorHub._id].sensorHubData2 }}
             small  lux
           li.list-group-item(title='Humidity', ng-show='latest[sensorHub._id].sensorHubData2 != undefined')
             strong
               i.icon-droplets
-              |  {{ latest[sensorHub._id].sensorHubData3 }} 
+              |  {{ latest[sensorHub._id].sensorHubData3 }}
             small  %
