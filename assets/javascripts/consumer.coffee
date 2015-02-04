@@ -67,5 +67,3 @@ require ['requirejs-config'], ->
     app.config ['$routeProvider', rp]
 
     angular.bootstrap document, ['app']
-
-    snapengageWidget()
