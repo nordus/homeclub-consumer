@@ -1,0 +1,63 @@
+style.
+  legend { font-size:inherit; margin-bottom:8px }
+
+.container
+  .row
+    .col-xs-12.page-header
+      h3.pull-left(style='margin:0 15px 15px 0') Alert Setup
+
+  .row
+    .col-xs-6
+      form.form-horizontal(ng-repeat='sensorHub in sensorHubs', name='forms.{{ sensorHub._id }}')
+        .row.panel.panel-default
+          .panel-heading
+            | {{ meta.sensorHubTypes[sensorHub.sensorHubType] }}
+            small.muted  {{ sensorHub._id }}
+            button.btn-default.btn-xs.pull-right(ng-hide="sensorHub.pendingCommands", ng-click="save(sensorHub)") Save
+            button.btn-default.btn-xs.pull-right(ng-show="sensorHub.pendingCommands", disabled='disabled') .. pending
+
+          .panel-body
+            .form-group
+              .col-xs-6
+                legend Room
+                .col-xs-12(style='padding:0')
+                  select.form-control(ng-model='sensorHub.roomType', ng-options='roomTypeId as roomTypeName for (roomTypeId, roomTypeName) in meta.roomTypes')
+
+              .col-xs-6(ng-if='sensorHub.sensorHubType == 1')
+                legend Water Source
+                .col-xs-12(style='padding:0')
+                  select.form-control(ng-model='sensorHub.waterSource', ng-options='waterSourceId as waterSourceName for (waterSourceId, waterSourceName) in meta.waterSources')
+
+
+            .form-group(ng-repeat='sensorType in sensorTypes', ng-if='hasSensorType(sensorHub, sensorType)')
+              .col-xs-12
+                legend {{ sensorType }} alerts
+
+                .col-xs-3(ng-repeat='deliveryMethod in deliveryMethods')
+                  label.checkbox-inline
+                    input(type='checkbox', ng-click="toggleSubscription(sensorHub, deliveryMethod, sensorType)", ng-checked="isChecked(sensorHub, sensorType, deliveryMethod)")
+                    | {{ deliveryMethod }}
+
+                .col-xs-3(ng-if='sensorTypeHasMinMax(sensorType)', ng-repeat="minOrMax in ['Min', 'Max']")
+                  label.col-xs-4.control-label {{ minOrMax }}
+                  .col-xs-8
+                    input.form-control(placeholder="{{ customThresholdOrDefault(sensorHub, sensorType, minOrMax) }}", ng-model="sensorHub.customThresholds[sensorType+minOrMax]", name='{{ sensorType + minOrMax }}')
+
+                .col-xs-6(ng-if='sensorHub.sensorHubType == 4')
+                  label.col-xs-4.control-label Sensitivity
+                  .col-xs-8
+                    select.form-control(ng-model='sensorHub.customThresholds.movementSensitivity', ng-options='sensitivityId as sensitivity for (sensitivityId, sensitivity) in meta.movementSensitivityLevels')
+
+            .row(ng-show='showDebug')
+              .col-xs-12
+                pre {{ sensorHub | json }}
+
+          .panel-footer(ng-if='sensorHub.pendingCommands') Pending Commands
+            table.table
+              thead
+                th Threshold
+                th Value
+              tbody
+                tr(ng-repeat='(threshold, value) in sensorHub.pendingCommands')
+                  td {{ threshold }}
+                  td {{ value }}

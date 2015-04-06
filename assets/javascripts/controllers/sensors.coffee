@@ -1,44 +1,55 @@
-define ['c/controllers', 's/sensorhub', 's/customer-account', 's/user', 's/notifier', 's/meta'], (controllers) ->
+define ['c/controllers', 's/sensorhub', 's/notifier', 's/meta'], (controllers) ->
   'use strict'
 
-  controllers.controller 'sensors', ['$rootScope', '$scope', 'sensorhub', 'customeraccount', 'user', 'notifier', 'meta', ($rootScope, $scope, sensorhub, customerAccount, user, notifier, meta) ->
+  controllers.controller 'sensors', ['$http', '$scope', 'sensorhub', 'notifier', 'meta', ($http, $scope, sensorhub, notifier, meta) ->
     $scope.meta = meta
 
     sensorhub.getAll {}, (data) -> $scope.sensorHubs = data
 
-    $scope.customerAccount = new customerAccount($rootScope.currentUser)
-    unless $scope.customerAccount.mutedSensorCategories
-      $scope.customerAccount.mutedSensorCategories = {}
-
-    $scope.mutedCategories = (shMacAddress) ->
-      $scope.customerAccount.mutedSensorCategories[shMacAddress] || []
-
-    $scope.checkIfMuted = (shMacAddress, category) ->
-      mutedCategories = $scope.mutedCategories(shMacAddress)
-      category in mutedCategories
-
-    $scope.categoryIsNotMuted = (shMacAddress, category) ->
-      isMuted = $scope.checkIfMuted(shMacAddress, category)
-      !isMuted
-
-    $scope.toggleMuted = (shMacAddress, category) ->
-      mutedCategories = $scope.mutedCategories(shMacAddress)
-      if category in mutedCategories
-        $scope.customerAccount.mutedSensorCategories[shMacAddress].splice mutedCategories.indexOf(category), 1
+    $scope.toggleSubscription = (sensorHub, deliveryMethod, sensorType) ->
+      subscriptions = sensorHub["#{deliveryMethod}Subscriptions"]
+      if sensorType in subscriptions
+        subscriptions.splice subscriptions.indexOf(sensorType), 1
       else
-        unless $scope.customerAccount.mutedSensorCategories[shMacAddress]
-          $scope.customerAccount.mutedSensorCategories[shMacAddress] = []
-        $scope.customerAccount.mutedSensorCategories[shMacAddress].push category
+        subscriptions.push sensorType
 
-    $scope.sensorHubName = (sensorHub) ->
-      meta.roomTypes[sensorHub.roomType] || meta.sensorHubTypes[sensorHub.sensorHubType]
+    $scope.forms = {}
 
-    $scope.save = ->
-      $scope.loading = true
-      $scope.sensorHubs.forEach (sensorHub) ->
-        sensorHub.$update()
-      $scope.customerAccount.$update (customerAccount) ->
+    $scope.save = (sensorHub) ->
+      sensorHub.$update (sensorHub) ->
         notifier.info 'Saved!'
-        $scope.loading = false
+
+    $scope.isChecked = (sensorHub, value, deliveryMethod) ->
+      notificationName = "#{deliveryMethod}Subscriptions"
+      checkedNotifications = sensorHub[notificationName]
+      indexOfValue = checkedNotifications.indexOf(value)
+      indexOfValue isnt -1
+
+    $scope.deliveryMethods = [ 'email', 'sms' ]
+
+    # load default thresholds from a Google Doc until they stabilize
+    googleDocUrl = 'https://script.google.com/macros/s/AKfycbx4CDENbFuDaPacJkpcsLk_fCl8M-1GOMPcvBCAFOzfsUHkrUk/exec?spreadsheetKey=1gikgwIc2IdcDPECGdD1nz5E50B8Wvi9rrva93ipI8XQ&spreadsheetName=Default%20Thresholds'
+    $http.get(googleDocUrl).success (data) ->
+      $scope.defaultThresholds = data
+
+      $scope.customThresholdOrDefault = (sensorHub, sensorType, minOrMax) ->
+        attr = "#{sensorType}#{minOrMax}"
+        sensorHub.customThresholds?[attr] || $scope.defaultThresholds[attr]
+
+    $scope.hasSensorType = (sensorHub, sensorType) ->
+      sensorTypesBySensorHubTypeId =
+        '1' : ['temperature', 'water']
+        '2' : ['humidity', 'light', 'temperature']
+        '3' : ['motion']
+        '4' : ['movement']
+
+      sensorTypesOfCurrentSensorHub = sensorTypesBySensorHubTypeId[sensorHub.sensorHubType] || []
+
+      sensorType in sensorTypesOfCurrentSensorHub
+
+    $scope.sensorTypeHasMinMax = (sensorType) ->
+      sensorType in ['humidity', 'light', 'temperature']
+
+    $scope.sensorTypes = ['humidity', 'light', 'motion', 'movement', 'temperature', 'water']
 
   ]
