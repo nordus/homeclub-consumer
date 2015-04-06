@@ -1,7 +1,13 @@
 define ['c/controllers', 's/notifier', 's/alert-text'], (controllers) ->
 	'use strict'
 
+  # TODO: [DRJ] remove Pusher
 	controllers.controller 'header', ['$http', '$rootScope', '$scope', 'notifier', 'Pusher', 'alerttext', '$location', ($http, $rootScope, $scope, notifier, Pusher, alerttext, $location) ->
+
+    $rootScope.showDebug = false
+    $rootScope.toggleDebug = ->
+      $rootScope.showDebug = !$rootScope.showDebug
+
     $rootScope.$watch 'currentUser', (currentUser) ->
       unless currentUser is undefined
         gatewayId = currentUser.gateways[0]._id
