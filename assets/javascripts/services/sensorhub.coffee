@@ -5,6 +5,7 @@ define ['ng', 's/services', 'ngResource'], (angular, services) ->
 
 		defaultParams =
 			id										: '@_id'
+			sensorHubMacAddresses	: $rootScope.currentUser.gateways[0].sensorHubs
 
 		$resource '/api/sensor-hubs/:id', defaultParams,
 			getAll:

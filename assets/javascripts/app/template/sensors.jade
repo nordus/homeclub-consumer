@@ -1,5 +1,6 @@
 style.
   legend { font-size:inherit; margin-bottom:8px }
+  input.ng-invalid.ng-touched { border-color:#a94442; }
 
 .container
   .row
@@ -8,13 +9,15 @@ style.
 
   .row
     .col-xs-6
+      .row(ng-if='networkHub.pendingOutboundCommand')
+        .alert.alert-warning Update in progress.  Some settings are hidden and cannot be changed.
+
       form.form-horizontal(ng-repeat='sensorHub in sensorHubs', name='forms.{{ sensorHub._id }}')
         .row.panel.panel-default
           .panel-heading
             | {{ meta.sensorHubTypes[sensorHub.sensorHubType] }}
             small.muted  {{ sensorHub._id }}
-            button.btn-default.btn-xs.pull-right(ng-hide="sensorHub.pendingCommands", ng-click="save(sensorHub)") Save
-            button.btn-default.btn-xs.pull-right(ng-show="sensorHub.pendingCommands", disabled='disabled') .. pending
+            button.btn-default.btn-xs.pull-right(ng-click="save(sensorHub)") Save
 
           .panel-body
             .form-group
@@ -33,31 +36,22 @@ style.
               .col-xs-12
                 legend {{ sensorType }} alerts
 
-                .col-xs-3(ng-repeat='deliveryMethod in deliveryMethods')
+                .col-xs-2(ng-repeat='deliveryMethod in deliveryMethods')
                   label.checkbox-inline
                     input(type='checkbox', ng-click="toggleSubscription(sensorHub, deliveryMethod, sensorType)", ng-checked="isChecked(sensorHub, sensorType, deliveryMethod)")
                     | {{ deliveryMethod }}
 
-                .col-xs-3(ng-if='sensorTypeHasMinMax(sensorType)', ng-repeat="minOrMax in ['Min', 'Max']")
-                  label.col-xs-4.control-label {{ minOrMax }}
+                .col-xs-4(ng-if='sensorTypeHasMinMax(sensorType) && !networkHub.pendingOutboundCommand')
+                  label.col-xs-4.control-label min
                   .col-xs-8
-                    input.form-control(placeholder="{{ customThresholdOrDefault(sensorHub, sensorType, minOrMax) }}", ng-model="sensorHub.customThresholds[sensorType+minOrMax]", name='{{ sensorType + minOrMax }}')
+                    input.form-control(type='number', min="{{ customThresholdInputRanges[sensorType + 'Min']['min'] }}", max="{{ customThresholdInputRanges[sensorType + 'Min']['max'] }}", ng-model="sensorHub.deviceThresholds[sensorType+'Min']", lower-than="{{sensorHub.deviceThresholds[sensorType+'Max']}}", name="{{ sensorType + 'Min' }}")
 
-                .col-xs-6(ng-if='sensorHub.sensorHubType == 4')
+                .col-xs-4(ng-if='sensorTypeHasMinMax(sensorType) && !networkHub.pendingOutboundCommand')
+                  label.col-xs-4.control-label max
+                  .col-xs-8
+                    input.form-control(type='number', min="{{ customThresholdInputRanges[sensorType + 'Max']['min'] }}", max="{{ customThresholdInputRanges[sensorType + 'Max']['max'] }}", ng-model="sensorHub.deviceThresholds[sensorType+'Max']", greater-than="{{sensorHub.deviceThresholds[sensorType+'Min']}}", name="{{ sensorType + 'Max' }}")
+
+                .col-xs-6(ng-if='sensorHub.sensorHubType == 3 && !networkHub.pendingOutboundCommand')
                   label.col-xs-4.control-label Sensitivity
                   .col-xs-8
-                    select.form-control(ng-model='sensorHub.customThresholds.movementSensitivity', ng-options='sensitivityId as sensitivity for (sensitivityId, sensitivity) in meta.movementSensitivityLevels')
-
-            .row(ng-show='showDebug')
-              .col-xs-12
-                pre {{ sensorHub | json }}
-
-          .panel-footer(ng-if='sensorHub.pendingCommands') Pending Commands
-            table.table
-              thead
-                th Threshold
-                th Value
-              tbody
-                tr(ng-repeat='(threshold, value) in sensorHub.pendingCommands')
-                  td {{ threshold }}
-                  td {{ value }}
+                    select.form-control(ng-model='sensorHub.deviceThresholds.movementSensitivity', ng-options='sensitivityId as sensitivity for (sensitivityId, sensitivity) in meta.movementSensitivityLevels')
