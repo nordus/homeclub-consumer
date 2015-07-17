@@ -1,9 +1,10 @@
 define ['ng', 's/services'], (angular, services) ->
 	'use strict'
 
-	services.factory 'alerttext', ->
+	services.factory 'alerttext', ( $filter ) ->
 
 		sensorHubEvent: (message) ->
+      eventDate = $filter('date')(message.timestamp, 'MMM d h:mm a')
       eventResolved = message.sensorEventEnd isnt 0
       if eventResolved
         eventType = message.sensorEventEnd
@@ -21,6 +22,7 @@ define ['ng', 's/services'], (angular, services) ->
         when 9 then '<i class="icon-reply-all2"></i> Movement'
       if eventResolved
         alertText += ' resolved'
+      alertText += ' <span class="small-text">' + eventDate + '</span>'
       alertText
 
 		gatewayEvent: (message) ->
