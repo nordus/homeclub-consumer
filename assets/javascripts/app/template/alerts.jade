@@ -1,26 +1,51 @@
 .container
+
   .row(style='margin-top:15px')
     .col-xs-6
       .panel.panel-default
-        .panel-heading Network Hub Alerts
+        .panel-heading.has-dropdown(style='border-bottom:none')
+          .row
+            .col-xs-8 Network Hub Alerts
+            .col-xs-4.pull-right
+              .col-xs-12
+                select.form-control(ng-model='networkHubSearchParams.start')
+                  option(value="'24 hours ago'") last 24 hours
+                  option(value="'7 days ago'") last 7 days
+                  option(value="'30 days ago'") last 30 days
+
         table.table.table-condensed
           tbody
-            tr.info(ng-repeat-start="date in gatewayEventsDates")
-              td.ac(colspan='3') {{ date.split('|')[1] }}
+            tr(ng-repeat-start="date in gatewayEventsDates")
+              td.panel-subheading(colspan='3')
+                .ac {{ date.split('|')[1] }}
             tr(ng-repeat="event in gatewayEventsGrouped[date] | orderBy:'-timestamp'", ng-repeat-end='ng-repeat-end')
               td: small {{ event.timestamp | date:'h:mm a' }}
               td(ng-bind-html='alerttext.gatewayEvent(event)')
 
     .col-xs-6
       .panel.panel-default
-        .panel-heading Sensor Alerts
+        .panel-heading.has-dropdown(style='border-bottom:none')
+          .row
+            .col-xs-4 Sensor Alerts
+            .col-xs-8.pull-right
+              .col-xs-6
+                select.form-control(ng-model='searchParams.start')
+                  option(value="'24 hours ago'") last 24 hours
+                  option(value="'7 days ago'") last 7 days
+                  option(value="'30 days ago'") last 30 days
+              .col-xs-6
+                select.form-control(ng-model='searchParams.sensorHubMacAddress', ng-options='option.value as option.title for option in filterOptions' )
+                  option(value='') All sensors
+
         table.table.table-condensed
           tbody
-            tr.info(ng-repeat-start='date in sensorHubEventsDates')
-              td.ac(colspan='3') {{ date.split('|')[1] }}
+            tr(ng-repeat-start='date in sensorHubEventsDates')
+              td.panel-subheading(colspan='3')
+                .ac {{ date.split('|')[1] }}
             tr(ng-repeat="event in sensorHubEventsGrouped[date] | orderBy:'-timestamp'", ng-repeat-end='ng-repeat-end')
               td: small {{ event.timestamp | date:'h:mm a' }}
               td(ng-bind-html='alerttext.sensorHubEvent(event)')
               td
                 | {{ roomNamesBySensorHubMacAddress[event.sensorHubMacAddress] }}
+                | &nbsp;
                 small ({{ event.sensorHubMacAddress }})
