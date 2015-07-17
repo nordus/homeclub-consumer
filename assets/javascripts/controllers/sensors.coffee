@@ -35,7 +35,7 @@ define ['ng', 'c/controllers', 's/gateway', 's/sensorhub', 's/notifier', 's/meta
 
     $scope.sensorTypes = ['humidity', 'light', 'motion', 'movement', 'temperature', 'water']
 
-    sensorTypesBySensorHubTypeId =
+    $scope.sensorTypesBySensorHubTypeId =
       '1' : ['temperature']
       '2' : ['humidity', 'light', 'temperature']
       '3' : ['movement']
@@ -52,7 +52,7 @@ define ['ng', 'c/controllers', 's/gateway', 's/sensorhub', 's/notifier', 's/meta
 
     $scope.hasSensorType = (sensorHub, sensorType) ->
 
-      sensorTypesOfCurrentSensorHub = sensorTypesBySensorHubTypeId[sensorHub.sensorHubType] || []
+      sensorTypesOfCurrentSensorHub = $scope.sensorTypesBySensorHubTypeId[sensorHub.sensorHubType] || []
 
       sensorType in sensorTypesOfCurrentSensorHub
 
