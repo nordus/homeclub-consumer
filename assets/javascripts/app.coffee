@@ -8,9 +8,10 @@ define [
   'highcharts-ng'
   's/services'
   'f/filters'
+  'ngAnalytics'
   ], (angular) ->
 
-  angular.module('app', ['controllers', 'filters', 'doowb.angular-pusher', 'ngResource', 'ngRoute', 'highcharts-ng', 'services'])
+  angular.module('app', ['controllers', 'filters', 'doowb.angular-pusher', 'ngResource', 'ngRoute', 'highcharts-ng', 'services', 'angular-google-analytics'])
     .directive('lowerThan', [
       ->
         link = ($scope, $ele, $attrs, ctrl) ->
@@ -63,8 +64,17 @@ define [
 
         require:'ngModel', link:link
     ])
-    .config ['PusherServiceProvider', (PusherServiceProvider) ->
+    .config(['PusherServiceProvider', 'AnalyticsProvider', (PusherServiceProvider, AnalyticsProvider) ->
       PusherServiceProvider
         .setToken('f513119581ede36ac6c4')
         .setOptions({})
-    ]
+
+      AnalyticsProvider.setAccount          'UA-50394594-4'
+      AnalyticsProvider.trackPages          true
+      AnalyticsProvider.trackUrlParams      true
+      AnalyticsProvider.useDisplayFeatures  true
+      AnalyticsProvider.useAnalytics        true
+      AnalyticsProvider.ignoreFirstPageLoad true
+
+    ])
+    .run ( Analytics ) ->

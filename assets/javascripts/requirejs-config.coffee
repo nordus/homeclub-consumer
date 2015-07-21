@@ -19,6 +19,7 @@ requirejs.config
     'highcharts-ng' : 'vendor/highcharts-ng/highcharts-ng'
     lodash      : 'vendor/lodash/lodash.compat'
     toastr      : 'vendor/toastr/toastr'
+    ngAnalytics : 'vendor/angular-google-analytics/angular-google-analytics.min'
 
   shim:
     ng:
@@ -32,3 +33,4 @@ requirejs.config
     'highcharts-more': ['highcharts']
     'highcharts-ng' : ['ng', 'highcharts', 'highcharts-more']
     toastr      : ['jquery']
+    ngAnalytics : ['ng']
