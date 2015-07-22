@@ -2,7 +2,7 @@ define ['c/controllers', 's/notifier', 's/alert-text', 'ngAnalytics'], (controll
 	'use strict'
 
   # TODO: [DRJ] remove Pusher
-	controllers.controller 'header', ['$http', '$rootScope', '$scope', 'Analytics', 'notifier', 'Pusher', 'alerttext', '$location', ($http, $rootScope, $scope, Analytics, notifier, Pusher, alerttext, $location) ->
+	controllers.controller 'header', ['$http', '$rootScope', '$scope', 'Analytics', 'notifier', 'Pusher', 'alerttext', '$location', '$document', ($http, $rootScope, $scope, Analytics, notifier, Pusher, alerttext, $location, $document) ->
 
     $rootScope.showDebug = false
     $rootScope.toggleDebug = ->
@@ -13,6 +13,7 @@ define ['c/controllers', 's/notifier', 's/alert-text', 'ngAnalytics'], (controll
 
         Analytics.createAnalyticsScriptTag()
         Analytics.set '&uid', currentUser._id
+        Analytics.set 'dimension1', currentUser._id
         Analytics.trackPage $location.path()
 
 #        gatewayId = currentUser.gateways[0]._id
