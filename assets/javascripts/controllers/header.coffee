@@ -11,7 +11,9 @@ define ['c/controllers', 's/notifier', 's/alert-text', 'ngAnalytics'], (controll
     $rootScope.$watch 'currentUser', (currentUser) ->
       unless currentUser is undefined
 
+        Analytics.createAnalyticsScriptTag()
         Analytics.set '&uid', currentUser._id
+        Analytics.trackPage $location.path()
 
 #        gatewayId = currentUser.gateways[0]._id
 #

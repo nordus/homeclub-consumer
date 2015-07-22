@@ -75,6 +75,7 @@ define [
       AnalyticsProvider.useDisplayFeatures  true
       AnalyticsProvider.useAnalytics        true
       AnalyticsProvider.ignoreFirstPageLoad true
+      AnalyticsProvider.delayScriptTag      true
 
     ])
     .run ( Analytics ) ->
