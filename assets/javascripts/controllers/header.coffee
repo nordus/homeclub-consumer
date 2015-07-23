@@ -14,6 +14,7 @@ define ['c/controllers', 's/notifier', 's/alert-text', 'ngAnalytics'], (controll
         Analytics.createAnalyticsScriptTag()
         Analytics.set '&uid', currentUser._id
         Analytics.set 'dimension1', currentUser._id
+        Analytics.set 'dimension2', currentUser.carrier
         Analytics.trackPage $location.path()
 
 #        gatewayId = currentUser.gateways[0]._id
