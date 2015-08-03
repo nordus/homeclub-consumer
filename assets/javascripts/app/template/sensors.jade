@@ -42,14 +42,19 @@ style.
                     | {{ deliveryMethod }}
 
                 .col-xs-4(ng-if='sensorTypeHasMinMax(sensorType) && !networkHub.pendingOutboundCommand')
-                  label.col-xs-4.control-label min
-                  .col-xs-8
-                    input.form-control(type='number', min="{{ customThresholdInputRanges[sensorType + 'Min']['min'] }}", max="{{ customThresholdInputRanges[sensorType + 'Min']['max'] }}", ng-model="sensorHub.deviceThresholds[sensorType+'Min']", lower-than="{{sensorHub.deviceThresholds[sensorType+'Max']}}", name="{{ sensorType + 'Min' }}")
+                  label.col-xs-3.control-label min
+                  .col-xs-9
+                    .input-group
+                      //.input-group-addon min
+                      input.form-control.input-sm(placeholder='min', type='number', min="{{ customThresholdInputRanges[sensorType + 'Min']['min'] }}", max="{{ customThresholdInputRanges[sensorType + 'Min']['max'] }}", ng-model="sensorHub.deviceThresholds[sensorType+'Min']", lower-than="{{sensorHub.deviceThresholds[sensorType+'Max']}}", name="{{ sensorType + 'Min' }}")
+                      .input-group-addon(style='padding:6px') {{ unitBySensorType[sensorType] }}
 
                 .col-xs-4(ng-if='sensorTypeHasMinMax(sensorType) && !networkHub.pendingOutboundCommand')
-                  label.col-xs-4.control-label max
-                  .col-xs-8
-                    input.form-control(type='number', min="{{ customThresholdInputRanges[sensorType + 'Max']['min'] }}", max="{{ customThresholdInputRanges[sensorType + 'Max']['max'] }}", ng-model="sensorHub.deviceThresholds[sensorType+'Max']", greater-than="{{sensorHub.deviceThresholds[sensorType+'Min']}}", name="{{ sensorType + 'Max' }}")
+                  label.col-xs-3.control-label max
+                  .col-xs-9
+                    .input-group
+                      input.form-control.input-sm(type='number', min="{{ customThresholdInputRanges[sensorType + 'Max']['min'] }}", max="{{ customThresholdInputRanges[sensorType + 'Max']['max'] }}", ng-model="sensorHub.deviceThresholds[sensorType+'Max']", greater-than="{{sensorHub.deviceThresholds[sensorType+'Min']}}", name="{{ sensorType + 'Max' }}")
+                      .input-group-addon(style='padding:6px') {{ unitBySensorType[sensorType] }}
 
                 .col-xs-6(ng-if='sensorHub.sensorHubType == 3 && !networkHub.pendingOutboundCommand')
                   label.col-xs-4.control-label Sensitivity
