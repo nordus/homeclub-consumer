@@ -3,6 +3,11 @@ define ['ng', 'c/controllers', 's/gateway', 's/sensorhub', 's/notifier', 's/meta
 
   controllers.controller 'sensors', ['$http', '$rootScope', '$scope', 'gateway', 'sensorhub', 'notifier', 'meta', ($http, $rootScope, $scope, gateway, sensorhub, notifier, meta) ->
 
+    $scope.unitBySensorType =
+      humidity  : '%'
+      temperature : '℉'
+      light       : 'lux'
+
     $scope.networkHub = gateway.get
       id:$rootScope.currentUser.gateways[0]._id
 
@@ -63,7 +68,7 @@ define ['ng', 'c/controllers', 's/gateway', 's/sensorhub', 's/notifier', 's/meta
 
       form        = $scope.forms[sensorHub._id]
       formDirty   = form.$dirty
-      sensorTypesOfCurrentSensorHub = sensorTypesBySensorHubTypeId[sensorHub.sensorHubType]
+      sensorTypesOfCurrentSensorHub = $scope.sensorTypesBySensorHubTypeId[sensorHub.sensorHubType]
 
       if formDirty
         sensorHub.$update (sensorHub) ->
