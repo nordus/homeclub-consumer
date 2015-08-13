@@ -82,7 +82,7 @@ h1,h2,h3,h4,h5,h6, .panel-heading, strong, th {
   margin-right: 3px;
 }
 
-.panel-heading > .muted {
+.panel-heading > .muted, th .muted {
   color: #78808a;
 }
 
@@ -165,4 +165,10 @@ a {
 }
 .panel > .table {
   box-shadow: none;
+}
+
+th {
+  [class^="icon-"], [class*=" icon-"] {
+    vertical-align: middle;
+  }
 }
