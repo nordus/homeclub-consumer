@@ -24,8 +24,8 @@ define ['c/controllers', 's/fieldhistogram'], (controllers) ->
       tooltip:
         formatter: ->
           [ $filter( 'date' )( @x, 'MMM dd, h:mma' )
-            "<span style=\"color:#{@points[1].series.color}\">- #{@points[0].series.name}</span>: <b>#{@y.toFixed(1)}℉</b>"
-            "<span style=\"color:#{@points[1].series.color}\">\u25CF #{@points[1].series.name}</span>: <b>#{@points[1].point.low.toFixed(1)}℉ - #{@points[1].point.high.toFixed(1)}℉</b>"
+            "<span style=\"color:#{@points[0].series.color}\">- #{@points[0].series.name}</span>: <b>#{@y.toFixed(1)}℉</b>"
+            "<span style=\"color:#{@points[1].series.color}\">\u25A0 #{@points[1].series.name}</span>: <b>#{@points[1].point.low.toFixed(1)}℉ - #{@points[1].point.high.toFixed(1)}℉</b>"
           ].join( '<br/>' )
 
   ]
