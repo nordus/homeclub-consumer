@@ -10,7 +10,7 @@ style.
   .row
     .col-xs-6
       .row(ng-if='networkHub.pendingOutboundCommand')
-        .alert.alert-warning Update in progress.  Some settings are hidden and cannot be changed.
+        .alert.alert-warning Update in progress.  Some settings are hidden and cannot be changed until update is complete.
 
       form.form-horizontal(ng-repeat='sensorHub in sensorHubs', name='forms.{{ sensorHub._id }}')
         .row.panel.panel-default
