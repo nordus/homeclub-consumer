@@ -53,6 +53,7 @@ define ['ng', 'c/controllers', 's/gateway', 's/sensorhub', 's/notifier', 's/meta
         subscriptions.splice subscriptions.indexOf(sensorType), 1
       else
         subscriptions.push sensorType
+      $scope.forms[sensorHub._id].$setDirty()
 
 
     $scope.hasSensorType = (sensorHub, sensorType) ->
