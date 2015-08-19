@@ -47,6 +47,7 @@ html
             li: a(href='#/account') Account
             li: a(href='#/sensors') Setup
             li: a(ng-show='currentUser.user.roles.homeClubAdmin', href='/admin') View admin
+            li: a(ng-show='currentUser.user.roles.carrierAdmin', href='/admin/carrier') View admin
             li.divider
             li: a(ng-click='logout()') Logout
             li(ng-if='currentUser.user.isDebugTester'): a.btn.btn-primary.btn-xs.navbar-btn(ng-click='toggleDebug()', style='padding-bottom:0; padding-top:0')
