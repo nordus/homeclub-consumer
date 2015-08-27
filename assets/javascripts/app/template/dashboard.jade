@@ -2,15 +2,22 @@ style.
   .panel-heading.two-line { min-height:61px }
 
 .container
-  .row(style='min-width:768px')
+  .row
     .col-xs-12
       .panel.panel-default
         .panel-heading
           span Network Hub 1
-          span.label.pull-right(ng-class='cssClassByRssiThreshold(latest[sensorHubs[0]._id].rssi)', title='cellular: {{ latest[sensorHubs[0]._id].rssi }} rssi')
-            i.icon-connection
-  .row(style='min-width:768px')
-    .col-xs-4(ng-repeat='sensorHub in sensorHubs')
+          .pull-right
+            span.label(style='margin-left:6px; margin-right:2px', ng-class='cssClassByRssiThreshold(latestNetworkHubPowerSource.rssi)', title='cellular: {{ latest[sensorHubs[0]._id].rssi }} rssi')
+              i.icon-connection
+            span.label(ng-if='latestNetworkHubPowerSource.gatewayEventCode == 1', ng-class='cssClassByBatteryThreshold(latestNetworkHubPowerSource.gatewayBattery)', title="backup battery: {{ latestNetworkHubPowerSource.gatewayBattery }}% ({{ latestNetworkHubPowerSource.timestamp | date:'MMM d h:mm a' }})")
+              i.icon-battery-half
+            span.label.label-success(ng-if='latestNetworkHubPowerSource.gatewayEventCode == 2', title='line power')
+              i.icon-power-cord
+  .row
+    .clearfix.visible-sm-block(ng-repeat-start='sensorHub in sensorHubs', ng-if='!$first && $index % 2 == 0')
+    .clearfix.visible-md-block(ng-if='!$first && $index % 3 == 0')
+    .col-xs-12.col-sm-6.col-md-4
       .panel.panel-default
         .panel-heading.two-line
           span(title='{{ sensorHub._id }}') {{ meta.sensorHubTypes[sensorHub.sensorHubType] }}
@@ -51,3 +58,5 @@ style.
               i.icon-droplets
               |  {{ latest[sensorHub._id].sensorHubData3 }}
             small  %
+
+    .clearfix.visible-xs-block(ng-repeat-end='')

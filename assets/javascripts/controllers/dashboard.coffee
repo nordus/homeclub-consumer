@@ -11,6 +11,13 @@ define ['c/controllers', 's/alert-text', 's/sensorhub', 's/latest', 's/meta', 's
     search.sensorHubEvents searchParams, (data) ->
       $scope.sensorHubEvents = data
 
+    search.gatewayEvents
+      gatewayEventCode  : '(1 2)'
+      limit             : 1
+      start             : '5 years ago'
+    , ( data ) ->
+        $scope.latestNetworkHubPowerSource = data[0]
+
     sensorhub.getAll {}, (data) ->
       $scope.sensorHubs = data
       roomNamesBySensorHubMacAddress = {}
