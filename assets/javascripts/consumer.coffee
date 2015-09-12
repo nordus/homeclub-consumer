@@ -12,21 +12,22 @@ require ['requirejs-config'], ->
     'c/account'
     'c/sensors'
     'bootstrap'
+    's/auth-token'
+    's/auth-interceptor'
     ], (angular, app, templates, snapengageWidget) ->
 
     rp = ($routeProvider) ->
 
       auth =
-        isLoggedIn: ['$http', '$q', '$rootScope', ($http, $q, $rootScope) ->
+        isLoggedIn: ['$http', '$rootScope', 'AuthTokenFactory', ($http, $rootScope, AuthTokenFactory) ->
           return true if $rootScope.currentUser
-          dfd = $q.defer()
           $http.get('/api/me/customer-account')
             .success (data) ->
-              $rootScope.currentUser = data
-              dfd.resolve true
+              $rootScope.currentUser = data.account
+              AuthTokenFactory.setToken data.token
+              return true
             .error ->
               location.href = '/login'
-          dfd.promise
         ]
 
       $routeProvider
@@ -59,6 +60,12 @@ require ['requirejs-config'], ->
         redirectTo  : '/dashboard'
 
     app.config ['$routeProvider', rp]
+
+    app.config [
+      '$httpProvider'
+      ( $httpProvider ) ->
+        $httpProvider.interceptors.push 'AuthInterceptor'
+    ]
 
     angular.bootstrap document, ['app']
 
