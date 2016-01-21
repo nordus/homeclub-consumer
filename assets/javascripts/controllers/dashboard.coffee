@@ -1,7 +1,11 @@
 define ['c/controllers', 's/alert-text', 's/sensorhub', 's/latest', 's/meta', 's/search'], (controllers) ->
 	'use strict'
 
-	controllers.controller 'dashboard', ['$scope', 'alerttext', 'sensorhub', 'latest', 'meta', 'search', ($scope, alerttext, sensorhub, latest, meta, search) ->
+	controllers.controller 'dashboard', ['$http', '$rootScope', '$scope', 'alerttext', 'sensorhub', 'latest', 'meta', 'search', ($http, $rootScope, $scope, alerttext, sensorhub, latest, meta, search) ->
+
+    $scope.weather = {}
+    $scope.weatherURL = 'http://api.wunderground.com/api/ac02af3b799f05ef/conditions/q/' + $rootScope.currentUser.state + '/' + $rootScope.currentUser.city + '.json' + '?callback=JSON_CALLBACK'
+    $http.jsonp( $scope.weatherURL, {} ).then ( resp ) -> $scope.weather = resp.data.current_observation; console.log( $scope.weather )
 
     searchParams = filtered:true, start:'60 minutes ago'
 

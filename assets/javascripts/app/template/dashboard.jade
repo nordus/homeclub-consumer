@@ -3,7 +3,15 @@ style.
 
 .container
   .row
-    .col-xs-12
+    .col-xs-6
+      .panel.panel-info
+        .media.panel-heading
+          .media-left.media-middle
+            img.media-object(ng-src="{{ weather.icon_url }}")
+          .media-body
+            h4.media-heading {{ weather.temp_f }} ℉
+            | {{ weather.display_location.full }}
+    .col-xs-6
       .panel.panel-default
         .panel-heading
           span Network Hub 1
