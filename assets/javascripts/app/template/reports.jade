@@ -15,7 +15,7 @@
         .panel-body
           ul.nav.nav-tabs
             li(ng-repeat='config in configArr', ng-class='{active:$first}')
-              a(data-toggle='tab', href="#{{ formatId(sensorHubMacAddress) }}-{{ config.series[0].name }}") {{ config.series[0].name }}
+              a(data-toggle='tab', href="#{{ formatId(sensorHubMacAddress) }}-{{ formatId( config.series[0].name ) }}") {{ config.series[0].name }}
           .tab-content
-            .tab-pane(ng-repeat='config in configArr', id="{{ formatId(sensorHubMacAddress) }}-{{ config.series[0].name }}", ng-class='{active:$first}')
+            .tab-pane(ng-repeat='config in configArr', id="{{ formatId(sensorHubMacAddress) }}-{{ formatId( config.series[0].name ) }}", ng-class='{active:$first}')
               highchart(config='config')
