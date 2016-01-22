@@ -41,7 +41,7 @@ define ['ng', 'c/controllers', 's/gateway', 's/sensorhub', 's/notifier', 's/meta
     $scope.sensorTypes = ['humidity', 'light', 'motion', 'movement', 'temperature', 'water']
 
     $scope.sensorTypesBySensorHubTypeId =
-      '1' : ['temperature']
+      '1' : ['temperature', 'water']
       '2' : ['humidity', 'light', 'temperature']
       '3' : ['movement']
       '4' : ['motion']
