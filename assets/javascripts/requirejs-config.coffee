@@ -20,6 +20,8 @@ requirejs.config
     lodash      : 'vendor/lodash/lodash.compat'
     toastr      : 'vendor/toastr/toastr'
     ngAnalytics : 'vendor/angular-google-analytics/angular-google-analytics.min'
+    firebase    : 'vendor/firebase/firebase'
+    angularFire : 'vendor/angularfire/angularfire'
 
   shim:
     ng:
@@ -34,3 +36,5 @@ requirejs.config
     'highcharts-ng' : ['ng', 'highcharts', 'highcharts-more']
     toastr      : ['jquery']
     ngAnalytics : ['ng']
+    firebase    : ['ng']
+    angularFire : ['ng', 'firebase']

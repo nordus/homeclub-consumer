@@ -9,9 +9,10 @@ define [
   's/services'
   'f/filters'
   'ngAnalytics'
+  'firebase'
   ], (angular) ->
 
-  angular.module('app', ['controllers', 'filters', 'doowb.angular-pusher', 'ngResource', 'ngRoute', 'highcharts-ng', 'services', 'angular-google-analytics'])
+  angular.module('app', ['controllers', 'filters', 'doowb.angular-pusher', 'ngResource', 'ngRoute', 'highcharts-ng', 'services', 'angular-google-analytics', 'firebase'])
     .directive('lowerThan', [
       ->
         link = ($scope, $ele, $attrs, ctrl) ->

@@ -13,6 +13,8 @@
     "toastr": "~2.0.3",
     "angular-sanitize": "~1.3.5",
     "highcharts-ng": "~0.0.7",
-    "angular-google-analytics": "~0.0.17"
+    "angular-google-analytics": "~0.0.17",
+    "firebase": "~2.4.0",
+    "angularfire": "~1.1.3"
   }
 }

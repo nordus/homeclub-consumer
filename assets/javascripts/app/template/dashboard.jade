@@ -19,9 +19,9 @@ style.
           .pull-right
             span.label(style='margin-left:6px; margin-right:2px', ng-class='cssClassByRssiThreshold(latestNetworkHubPowerSource.rssi)', title='cellular: {{ latest[sensorHubs[0]._id].rssi }} rssi')
               i.icon-connection
-            span.label(ng-if='latestNetworkHubPowerSource.gatewayEventCode == 1', ng-class='cssClassByBatteryThreshold(latestNetworkHubPowerSource.gatewayBattery)', title="backup battery: {{ latestNetworkHubPowerSource.gatewayBattery }}% ({{ latestNetworkHubPowerSource.timestamp | date:'MMM d h:mm a' }})")
+            span.label(ng-if='latestNetworkHubPowerSource.powerSource == 1', ng-class='cssClassByBatteryThreshold(latestNetworkHubPowerSource.battery)', title="backup battery: {{ latestNetworkHubPowerSource.battery }}% ({{ latestNetworkHubPowerSource.timestamp | date:'MMM d h:mm a' }})")
               i.icon-battery-half
-            span.label.label-success(ng-if='latestNetworkHubPowerSource.gatewayEventCode == 2', title='line power')
+            span.label.label-success(ng-if='latestNetworkHubPowerSource.powerSource == 2', title='line power')
               i.icon-power-cord
   .row
     .clearfix.visible-sm-block(ng-repeat-start='sensorHub in sensorHubs', ng-if='!$first && $index % 2 == 0')
@@ -30,42 +30,42 @@ style.
       .panel.panel-default
         .panel-heading.two-line
           span(title='{{ sensorHub._id }}') {{ meta.sensorHubTypes[sensorHub.sensorHubType] }}
-          small  ({{ latest[sensorHub._id].timestamp | date:'MMM d h:mm a' }})
+          small  ({{ sensorHubRealtime[sensorHub._id].updateTime | date : 'MMM d h:mm a' : 'UTC' }})
           .pull-right
-            small(style='color:#4f9fcf') {{ latest[sensorHub._id].sensorHubData1 }} &#8457;
-            span.label(style='margin-left:6px; margin-right:2px', ng-class='cssClassByRssiThreshold(latest[sensorHub._id].sensorHubRssi)', title='bluetooth: {{ latest[sensorHub._id].sensorHubRssi }} rssi')
+            small(style='color:#4f9fcf') {{ sensorHubRealtime[sensorHub._id].sensorHubData1 }} &#8457;
+            span.label(style='margin-left:6px; margin-right:2px', ng-class='cssClassByRssiThreshold(sensorHubRealtime[sensorHub._id].sensorHubRssi)', title='bluetooth: {{ sensorHubRealtime[sensorHub._id].sensorHubRssi }} rssi')
               i.icon-bluetooth
-            span.label(ng-class='cssClassByBatteryThreshold(latest[sensorHub._id].sensorHubBattery)', title='battery: {{ latest[sensorHub._id].sensorHubBattery }}%')
+            span.label(ng-class='cssClassByBatteryThreshold(sensorHubRealtime[sensorHub._id].sensorHubBattery)', title='battery: {{ sensorHubRealtime[sensorHub._id].sensorHubBattery }}%')
               i.icon-battery-half
           br
           span {{ meta.roomTypes[sensorHub.roomType] }}
           small(ng-show='sensorHub.sensorHubType == 1 && sensorHub.waterSource')  ({{ meta.waterSources[sensorHub.waterSource] }})
         ul.list-group
-          li.list-group-item.list-group-item-warning(ng-show='latest[sensorHub._id].sensorHubData1 == undefined')
+          li.list-group-item.list-group-item-warning(ng-show='sensorHubRealtime[sensorHub._id].sensorHubData1 == undefined')
             | No data collected yet
 
           // show 'OK' if no alerts (for water, motion, and movement sensors)
-          li.list-group-item.text-success.ac(ng-if='sensorHub.sensorHubType != 2 && !latest[sensorHub._id].latestAlert', title='No alerts in last 12 hours')
+          li.list-group-item.text-success.ac(ng-if='sensorHub.sensorHubType != 2 && !sensorHubRealtime[sensorHub._id].latestAlert', title='No alerts in last 12 hours')
             i.icon-ok-circle
             |  OK
 
-          li.list-group-item(ng-if='latest[sensorHub._id].latestAlert', ng-class="{ 'text-warning': sensorHub.sensorHubType != 1, 'text-danger': sensorHub.sensorHubType == 1 }")
-            .alert-icon-left(ng-bind-html='alerttext.sensorHubEvent( latest[sensorHub._id].latestAlert )')
-          li.list-group-item(ng-if='latest[sensorHub._id].latestAlert', style='border:none; padding:0; top:-8px')
+          li.list-group-item(ng-if='sensorHubRealtime[sensorHub._id].latestAlert', ng-class="{ 'text-warning': sensorHub.sensorHubType != 1, 'text-danger': sensorHub.sensorHubType == 1 }")
+            .alert-icon-left(ng-bind-html='alerttext.sensorHubEvent( sensorHubRealtime[sensorHub._id].latestAlert )')
+          li.list-group-item(ng-if='sensorHubRealtime[sensorHub._id].latestAlert', style='border:none; padding:0; top:-8px')
             .ac
               a.small-text(href='#/alerts?sensorHubMacAddress={{ sensorHub._id }}')
                 i.glyphicon.glyphicon-triangle-right
                 |  show more
 
-          li.list-group-item(ng-show='latest[sensorHub._id].sensorHubData2 != undefined', title='Light')
+          li.list-group-item(ng-show='sensorHubRealtime[sensorHub._id].sensorHubData2 != undefined', title='Light')
             strong
               i.icon-lamp
-              |  {{ latest[sensorHub._id].sensorHubData2 }}
+              |  {{ sensorHubRealtime[sensorHub._id].sensorHubData2 }}
             small  lux
-          li.list-group-item(title='Humidity', ng-show='latest[sensorHub._id].sensorHubData2 != undefined')
+          li.list-group-item(title='Humidity', ng-show='sensorHubRealtime[sensorHub._id].sensorHubData2 != undefined')
             strong
               i.icon-droplets
-              |  {{ latest[sensorHub._id].sensorHubData3 }}
+              |  {{ sensorHubRealtime[sensorHub._id].sensorHubData3 }}
             small  %
 
     .clearfix.visible-xs-block(ng-repeat-end='')

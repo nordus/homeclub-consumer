@@ -1,11 +1,16 @@
-define ['c/controllers', 's/alert-text', 's/sensorhub', 's/latest', 's/meta', 's/search'], (controllers) ->
+define ['c/controllers', 's/alert-text', 's/sensorhub', 's/latest', 's/meta', 's/search', 'angularFire'], (controllers) ->
 	'use strict'
 
-	controllers.controller 'dashboard', ['$http', '$rootScope', '$scope', 'alerttext', 'sensorhub', 'latest', 'meta', 'search', ($http, $rootScope, $scope, alerttext, sensorhub, latest, meta, search) ->
+	controllers.controller 'dashboard', ['$http', '$rootScope', '$scope', 'alerttext', 'sensorhub', 'latest', 'meta', 'search', '$firebaseObject', ($http, $rootScope, $scope, alerttext, sensorhub, latest, meta, search, $firebaseObject) ->
+
+    ref                                 = new Firebase( 'https://homeclub-q.firebaseio.com' )
+    $scope.macAddress                   = $rootScope.currentUser.gateways[0]._id
+    $scope.sensorHubRealtime            = $firebaseObject( ref.child( $scope.macAddress ).child( 'sensorHubs' ) )
+    $scope.latestNetworkHubPowerSource  = $firebaseObject( ref.child( $scope.macAddress ).child( 'latestPowerStatus' ) )
 
     $scope.weather = {}
     $scope.weatherURL = 'http://api.wunderground.com/api/ac02af3b799f05ef/conditions/q/' + $rootScope.currentUser.state + '/' + $rootScope.currentUser.city + '.json' + '?callback=JSON_CALLBACK'
-    $http.jsonp( $scope.weatherURL, {} ).then ( resp ) -> $scope.weather = resp.data.current_observation; console.log( $scope.weather )
+    $http.jsonp( $scope.weatherURL, {} ).then ( resp ) -> $scope.weather = resp.data.current_observation
 
     searchParams = filtered:true, start:'60 minutes ago'
 
@@ -15,12 +20,12 @@ define ['c/controllers', 's/alert-text', 's/sensorhub', 's/latest', 's/meta', 's
     search.sensorHubEvents searchParams, (data) ->
       $scope.sensorHubEvents = data
 
-    search.gatewayEvents
-      gatewayEventCode  : '(1 2)'
-      limit             : 1
-      start             : '5 years ago'
-    , ( data ) ->
-        $scope.latestNetworkHubPowerSource = data[0]
+#    search.gatewayEvents
+#      gatewayEventCode  : '(1 2)'
+#      limit             : 1
+#      start             : '5 years ago'
+#    , ( data ) ->
+#        $scope.latestNetworkHubPowerSource = data[0]
 
     sensorhub.getAll {}, (data) ->
       $scope.sensorHubs = data
@@ -32,7 +37,7 @@ define ['c/controllers', 's/alert-text', 's/sensorhub', 's/latest', 's/meta', 's
 
       $scope.roomNamesBySensorHubMacAddress = roomNamesBySensorHubMacAddress
 
-    latest.get start:"'12 hours ago'", (data) -> $scope.latest = data
+#    latest.get start:"'12 hours ago'", (data) -> $scope.latest = data
 
     $scope.cssClassByRssiThreshold = (rssi) ->
       return 'label-default' if rssi is undefined
