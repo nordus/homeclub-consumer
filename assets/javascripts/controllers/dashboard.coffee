@@ -9,7 +9,7 @@ define ['c/controllers', 's/alert-text', 's/sensorhub', 's/latest', 's/meta', 's
     $scope.latestNetworkHubPowerSource  = $firebaseObject( ref.child( $scope.macAddress ).child( 'latestPowerStatus' ) )
 
     $scope.weather = {}
-    $scope.weatherURL = 'http://api.wunderground.com/api/ac02af3b799f05ef/conditions/q/' + $rootScope.currentUser.state + '/' + $rootScope.currentUser.city + '.json' + '?callback=JSON_CALLBACK'
+    $scope.weatherURL = 'https://api.wunderground.com/api/ac02af3b799f05ef/conditions/q/' + $rootScope.currentUser.state + '/' + $rootScope.currentUser.city + '.json' + '?callback=JSON_CALLBACK'
     $http.jsonp( $scope.weatherURL, {} ).then ( resp ) -> $scope.weather = resp.data.current_observation
 
     searchParams = filtered:true, start:'60 minutes ago'
