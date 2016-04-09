@@ -39,7 +39,7 @@ define ['c/controllers', 's/alert-text', 's/sensorhub', 's/latest', 's/meta', 's
 
 #    latest.get start:"'12 hours ago'", (data) -> $scope.latest = data
 
-    $scope.httpsUrl = ( url ) ->
+    $scope.httpsUrl = ( url = '' ) ->
       url.replace 'http:', 'https:'
 
     $scope.cssClassByRssiThreshold = (rssi) ->
