@@ -7,7 +7,7 @@ style.
       .panel.panel-info
         .media.panel-heading
           .media-left.media-middle
-            img.media-object(ng-src="{{ weather.icon_url }}")
+            img.media-object(ng-src="{{ httpsUrl(weather.icon_url) }}")
           .media-body
             h4.media-heading(ng-show='weather.temp_f')
               | {{ weather.temp_f }} ℉
