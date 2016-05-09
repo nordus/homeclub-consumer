@@ -17,7 +17,7 @@ style.
         .panel-heading
           span Network Hub 1
           .pull-right
-            span.label(style='margin-left:6px; margin-right:2px', ng-class='cssClassByRssiThreshold(latestNetworkHubPowerSource.rssi)', title='cellular: {{ latest[sensorHubs[0]._id].rssi }} rssi')
+            span.label(style='margin-left:6px; margin-right:2px', ng-class='cssClassByRssiThreshold(latestNetworkHubRssi.rssi)', title='cellular: {{ latestNetworkHubRssi.rssi }} rssi')
               i.icon-connection
             span.label(ng-if='latestNetworkHubPowerSource.powerSource == 1', ng-class='cssClassByBatteryThreshold(latestNetworkHubPowerSource.battery)', title="backup battery: {{ latestNetworkHubPowerSource.battery }}% ({{ latestNetworkHubPowerSource.timestamp | date:'MMM d h:mm a' }})")
               i.icon-battery-half

@@ -7,6 +7,7 @@ define ['c/controllers', 's/alert-text', 's/sensorhub', 's/latest', 's/meta', 's
     $scope.macAddress                   = $rootScope.currentUser.gateways[0]._id
     $scope.sensorHubRealtime            = $firebaseObject( ref.child( $scope.macAddress ).child( 'sensorHubs' ) )
     $scope.latestNetworkHubPowerSource  = $firebaseObject( ref.child( $scope.macAddress ).child( 'latestPowerStatus' ) )
+    $scope.latestNetworkHubRssi         = $firebaseObject( ref.child( $scope.macAddress ).child( 'latestRssi' ) )
 
     $scope.weather = {}
     $scope.weatherURL = 'https://api.wunderground.com/api/ac02af3b799f05ef/conditions/q/' + $rootScope.currentUser.state + '/' + $rootScope.currentUser.city + '.json' + '?callback=JSON_CALLBACK'
