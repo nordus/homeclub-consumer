@@ -2,7 +2,7 @@ style.
   .panel-heading.two-line { min-height:61px }
 
 .container
-  .row
+  // .row
     .col-xs-6
       .panel.panel-info
         .media.panel-heading
@@ -24,9 +24,29 @@ style.
             span.label.label-success(ng-if='latestNetworkHubPowerSource.powerSource == 2', title='line power')
               i.icon-power-cord
   .row
-    .clearfix.visible-sm-block(ng-repeat-start='sensorHub in sensorHubs', ng-if='!$first && $index % 2 == 0')
-    .clearfix.visible-md-block(ng-if='!$first && $index % 3 == 0')
+    // .clearfix.visible-sm-block(ng-repeat-start='sensorHub in sensorHubs', ng-if='!$first && $index % 2 == 0')
+    // .clearfix.visible-md-block(ng-if='!$first && $index % 3 == 0')
     .col-xs-12.col-sm-6.col-md-4
+      .panel
+        .media.panel-heading
+          .media-left.media-middle
+            img.media-object(ng-src="{{ httpsUrl(weather.icon_url) }}")
+          .media-body
+            h4.media-heading(ng-show='weather.temp_f')
+              | {{ weather.temp_f }} ℉
+            | {{ weather.display_location.full }}
+    .col-xs-12.col-sm-6.col-md-4
+      .panel.panel-default
+        .panel-heading
+          span Network Hub 1
+          .pull-right
+            span.label(style='margin-left:6px; margin-right:2px', ng-class='cssClassByRssiThreshold(latestNetworkHubRssi.rssi)', title='cellular: {{ latestNetworkHubRssi.rssi }} rssi')
+              i.icon-connection
+            span.label(ng-if='latestNetworkHubPowerSource.powerSource == 1', ng-class='cssClassByBatteryThreshold(latestNetworkHubPowerSource.battery)', title="backup battery: {{ latestNetworkHubPowerSource.battery }}% ({{ latestNetworkHubPowerSource.timestamp | date:'MMM d h:mm a' }})")
+              i.icon-battery-half
+            span.label.label-success(ng-if='latestNetworkHubPowerSource.powerSource == 2', title='line power')
+              i.icon-power-cord
+    .col-xs-12.col-sm-6.col-md-4(ng-repeat-start='sensorHub in sensorHubs')
       .panel.panel-default
         .panel-heading.two-line
           span(title='{{ sensorHub._id }}') {{ meta.sensorHubTypes[sensorHub.sensorHubType] }}
