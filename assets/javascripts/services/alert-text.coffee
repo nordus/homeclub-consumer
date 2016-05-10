@@ -4,8 +4,6 @@ define ['ng', 's/services'], (angular, services) ->
 	services.factory 'alerttext', ( $filter ) ->
 
 		sensorHubEvent: (message) ->
-      console.log 'foo:'
-      console.log message
       eventDate = $filter('date')(message.updateTime, 'MMM d h:mm a', 'UTC')
       eventResolved = message.sensorEventEnd isnt 0
       if eventResolved
